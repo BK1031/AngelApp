@@ -12,12 +12,20 @@ class TabsPage extends StatelessWidget {
             length: 2,
             child: Scaffold(
                 appBar: AppBar(
+                  leading: Container(
+                      margin: EdgeInsets.all(15),
+                      padding: EdgeInsets.all(0),
+                      child: Icon(Icons.person,
+                          color: currBackgroundColor, size: 25),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: accentColor)),
                   elevation: 0,
                   backgroundColor: currBackgroundColor,
                   flexibleSpace: Column(children: [
                     Container(
                         child: new Card(
                       elevation: 0,
+                      margin: EdgeInsets.only(left: 50),
                       color: currCardColor,
                       child: Container(
                         padding: EdgeInsets.only(left: 16),
