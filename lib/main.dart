@@ -49,6 +49,7 @@ void main() {
     title: "Angel",
     debugShowCheckedModeBanner: false,
     theme: mainTheme,
+    color: currBackgroundColor,
     initialRoute: '/',
     onGenerateRoute: router.generator,
   ));

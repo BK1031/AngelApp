@@ -25,12 +25,13 @@ const blackCardColor = const Color(0xFF2C2C2C);
 const blackDividerColor = const Color(0xFF616161);
 
 // CURRENT COLORs
-var currTextColor = lightTextColor;
-var currBackgroundColor = lightBackgroundColor;
-var currCardColor = lightCardColor;
-var currDividerColor = lightDividerColor;
+var currTextColor = darkTextColor;
+var currBackgroundColor = darkBackgroundColor;
+var currCardColor = darkCardColor;
+var currDividerColor = darkDividerColor;
 
 final mainTheme = new ThemeData(
     primaryColor: mainColor,
     accentColor: mainColor,
+    brightness: Brightness.dark,
 );
