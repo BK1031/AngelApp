@@ -14,30 +14,23 @@ class TabsPage extends StatelessWidget {
                 appBar: AppBar(
                   elevation: 0,
                   backgroundColor: currBackgroundColor,
-                  leading: Container(
-                    padding: EdgeInsets.all(16),
-                    child: new Card(
-                        color: currCardColor,
-                        child: Container(
-                          padding: EdgeInsets.only(
-                              left: 16, top: 8, bottom: 8, right: 8),
-                          child: Theme(
-                            data: ThemeData(
-                              primaryColor: accentColor,
-                              accentColor: accentColor,
-                              brightness: Brightness.dark,
-                            ),
-                            child: new TextField(
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                icon: Icon(Icons.search),
-                                hintText: "Search for locations",
-                              ),
-                              style: TextStyle(color: accentColor),
-                            ),
+                  flexibleSpace: Column(children: [
+                    Container(
+                        child: new Card(
+                      elevation: 0,
+                      color: currCardColor,
+                      child: Container(
+                        padding: EdgeInsets.only(left: 16),
+                        child: new TextField(
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(Icons.search),
                           ),
-                        )),
-                  ),
+                          style: TextStyle(color: accentColor),
+                        ),
+                      ),
+                    ))
+                  ]),
                   bottom: TabBar(
                       indicator: BoxDecoration(
                         color: currCardColor,
