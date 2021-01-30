@@ -1,6 +1,7 @@
 import 'package:angel_app/pages/community/community_page.dart';
 import 'package:angel_app/pages/home/home_page.dart';
 import 'package:angel_app/pages/map/map_page.dart';
+import 'package:angel_app/pages/messages/messages_page.dart';
 import 'package:angel_app/pages/onboarding_page.dart';
 import 'package:angel_app/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -40,15 +41,21 @@ void main() {
     return new MapPage();
   }));
 
-  // MAP ROUTES
+  // COMMUNITY ROUTES
   router.define('/community', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new CommunityPage();
+  }));
+
+  // MESSAGES ROUTES
+  router.define('/messages', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return new MessagesPage();
   }));
 
   runApp(new MaterialApp(
     title: "Angel",
     debugShowCheckedModeBanner: false,
     theme: mainTheme,
+    color: currBackgroundColor,
     initialRoute: '/',
     onGenerateRoute: router.generator,
   ));
