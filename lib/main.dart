@@ -1,3 +1,4 @@
+import 'package:angel_app/pages/community/community_page.dart';
 import 'package:angel_app/pages/home/home_page.dart';
 import 'package:angel_app/pages/map/map_page.dart';
 import 'package:angel_app/pages/onboarding_page.dart';
@@ -37,6 +38,11 @@ void main() {
   // MAP ROUTES
   router.define('/map', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new MapPage();
+  }));
+
+  // MAP ROUTES
+  router.define('/community', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return new CommunityPage();
   }));
 
   runApp(new MaterialApp(
