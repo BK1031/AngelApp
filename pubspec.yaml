@@ -54,6 +54,7 @@ dependencies:
   zefyr: ^0.10.0
   flutter_markdown: ^0.3.3
   flutter_linkify: ^4.0.2
+  youtube_player_iframe: ^1.2.0+2
 
 dev_dependencies:
   flutter_test:

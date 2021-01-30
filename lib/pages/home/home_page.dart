@@ -13,20 +13,119 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(),
-      body: Container(
-        child: Column(
+        backgroundColor: Colors.black,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            new CupertinoButton(
-              child: new Text("Go to Map"),
-              color: mainColor,
-              onPressed: () {
-                router.navigateTo(context, "/map", transition: TransitionType.fadeIn);
-              },
+            Text(
+              'trending',
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.yellow[100],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 25.0),
+              height: 140.0,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[50],
+                  ),
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[100],
+                  ),
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[200],
+                  ),
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[300],
+                  ),
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[400],
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              'personal safety',
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.yellow[100],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 25.0),
+              height: 140.0,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[50],
+                  ),
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[100],
+                  ),
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[200],
+                  ),
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[300],
+                  ),
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[400],
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              'self-care',
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.yellow[100],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 25.0),
+              height: 140.0,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[50],
+                  ),
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[100],
+                  ),
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[200],
+                  ),
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[300],
+                  ),
+                  Container(
+                    width: 200.0,
+                    color: Colors.yellow[400],
+                  ),
+                ],
+              ),
             ),
           ],
-        ),
-      )
-    );
+        ));
   }
 }
