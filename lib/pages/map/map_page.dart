@@ -1,10 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:html';
 
 import 'package:angel_app/utils/config.dart';
 import 'package:angel_app/utils/theme.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart';
 import 'package:location/location.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -13,12 +19,19 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
 
-  Completer<GoogleMapController> _mapController = Completer();
+  TextEditingController _textController = new TextEditingController();
+  FocusNode textFocusNode = new FocusNode();
+  GoogleMapController _mapController;
   Location location = new Location();
 
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
   LocationData _locationData;
+
+  String locationSearchString = "";
+  List<dynamic> placeList = [];
+  Widget placeDetailWidget = new Container();
+  bool placeSelected = false;
 
   @override
   void initState() {
@@ -42,8 +55,7 @@ class _MapPageState extends State<MapPage> {
       }
     }
     _locationData = await location.getLocation();
-    final GoogleMapController controller = await _mapController.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+    _mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
       target: LatLng(_locationData.latitude, _locationData.longitude),
       zoom: 16,
     )));
@@ -51,7 +63,8 @@ class _MapPageState extends State<MapPage> {
 
     location.onLocationChanged.listen((LocationData currentLocation) {
       // Use current location
-      controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      _locationData = currentLocation;
+      _mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng(currentLocation.latitude, currentLocation.longitude),
         zoom: 16,
       )));
@@ -60,12 +73,69 @@ class _MapPageState extends State<MapPage> {
   }
 
   void onSearch(String input) {
+    setState(() {
+      locationSearchString = input;
+    });
+    searchPlaces(locationSearchString.replaceAll(" ", "+"));
+  }
+  Future<void> searchPlaces(String query) async {
+    print("Searching near (${_locationData.latitude}, ${_locationData.longitude})");
+    var response = await get("$PROXY_URL/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&location=${_locationData.latitude},${_locationData.longitude}&key=$MAPS_API_KEY");
+    if (response.statusCode == 200) {
+      setState(() {
+        placeList = json.decode(response.body)['predictions'];
+      });
+    } else {
+      window.alert('Failed to load predictions');
+    }
+  }
 
+  Future<void> getPlaceDetails(String id) async {
+    var response = await get("$PROXY_URL/https://maps.googleapis.com/maps/api/place/details/json?place_id=$id&key=$MAPS_API_KEY");
+    if (response.statusCode == 200) {
+      _mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng(json.decode(response.body)["result"]["geometry"]["location"]["lat"], json.decode(response.body)["result"]["geometry"]["location"]["lng"]),
+        zoom: 16,
+      )));
+      setState(() {
+        placeSelected = true;
+        placeDetailWidget = Card(
+          child: new Container(
+            padding: EdgeInsets.all(16),
+            child: Row(
+              children: [
+                new CachedNetworkImage(imageUrl: json.decode(response.body)["result"]["icon"], color: mainColor, height: 35,),
+                new Padding(padding: EdgeInsets.all(8)),
+                new Expanded(
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      new Text(
+                        json.decode(response.body)["result"]["name"],
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      new Padding(padding: EdgeInsets.all(8)),
+                      new Text(
+                        json.decode(response.body)["result"]["formatted_address"],
+                        style: TextStyle(),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      });
+    } else {
+      window.alert('Failed to load place');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: currBackgroundColor,
       body: Container(
         child: Stack(
           children: [
@@ -73,36 +143,86 @@ class _MapPageState extends State<MapPage> {
               mapType: MapType.normal,
               initialCameraPosition: CameraPosition(target: LatLng(37.276310, -121.827484), zoom: 16),
               onMapCreated: (GoogleMapController controller) {
-                _mapController.complete(controller);
-                controller.setMapStyle(mapStyle.toString());
+                _mapController = controller;
+                _mapController.setMapStyle(mapStyle);
               },
               zoomControlsEnabled: false,
             ),
             new Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   padding: EdgeInsets.all(16),
                   child: new Card(
                     color: currCardColor,
-                    child: Container(
-                      padding: EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 8),
-                      child: Theme(
-                        data: ThemeData(
-                          primaryColor: accentColor,
-                          accentColor: accentColor,
-                          brightness: Brightness.dark,
-                        ),
-                        child: new TextField(
-                          onChanged: onSearch,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(Icons.search),
-                            hintText: "Search for locations",
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.easeInOut,
+                      height: locationSearchString != "" ? 350 : 65,
+                      padding: EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 16),
+                      child: Column(
+                        children: [
+                          Theme(
+                            data: ThemeData(
+                              primaryColor: accentColor,
+                              accentColor: accentColor,
+                              brightness: Brightness.dark,
+                            ),
+                            child: new TextField(
+                              focusNode: textFocusNode,
+                              controller: _textController,
+                              onChanged: onSearch,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                icon: Icon(Icons.search),
+                                hintText: "Search for locations",
+                              ),
+                              cursorColor: accentColor,
+                              style: TextStyle(color: accentColor),
+                            ),
                           ),
-                          style: TextStyle(color: accentColor),
-                        ),
+                          new Visibility(
+                            visible: locationSearchString != "",
+                            child: new Expanded(
+                              child: ListView.builder(
+                                itemCount: placeList.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    onTap: () {
+                                      setState(() {
+                                        locationSearchString = "";
+                                      });
+                                      _textController.clear();
+                                      textFocusNode.unfocus();
+                                      print("Getting place details");
+                                      getPlaceDetails(placeList[index]["place_id"]);
+                                    },
+                                    title: Text(placeList[index]["structured_formatting"]["main_text"]),
+                                    subtitle: Text(placeList[index]["description"]),
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     )
+                  ),
+                ),
+                new Visibility(
+                  visible: placeSelected,
+                  child: new Container(
+                    padding: EdgeInsets.only(left: 16, right: 16, top: 64),
+                    child: placeDetailWidget
+                  ),
+                ),
+                new Container(
+                  child: CupertinoButton(
+                    onPressed: () {
+
+                    },
+                    color: currCardColor,
+                    child: new Text("Tag New Location"),
                   ),
                 )
               ],
