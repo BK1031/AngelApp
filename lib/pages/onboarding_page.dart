@@ -23,28 +23,32 @@ class _OnboardingPageState extends State<OnboardingPage> {
               child: new Text("Go to Home"),
               color: mainColor,
               onPressed: () {
-                router.navigateTo(context, "/home", transition: TransitionType.fadeIn);
+                router.navigateTo(context, "/home",
+                    transition: TransitionType.fadeIn);
               },
             ),
             new CupertinoButton(
               child: new Text("Go to Map"),
               color: mainColor,
               onPressed: () {
-                router.navigateTo(context, "/map", transition: TransitionType.fadeIn);
+                router.navigateTo(context, "/map",
+                    transition: TransitionType.fadeIn);
               },
             ),
             new CupertinoButton(
               child: new Text("Go to Community"),
               color: mainColor,
               onPressed: () {
-                router.navigateTo(context, "/community", transition: TransitionType.fadeIn);
+                router.navigateTo(context, "/community",
+                    transition: TransitionType.fadeIn);
               },
             ),
             new CupertinoButton(
               child: new Text("Go to Messages"),
               color: mainColor,
               onPressed: () {
-                router.navigateTo(context, "/messages", transition: TransitionType.fadeIn);
+                router.navigateTo(context, "/messages",
+                    transition: TransitionType.fadeIn);
               },
             ),
           ],

@@ -19,11 +19,11 @@ class _MessagesPageState extends State<MessagesPage> {
             onPressed: () {
               router.pop(context);
             }),
-        backgroundColor: Colors.black,
+        backgroundColor: currBackgroundColor,
         body: Container(
-            margin: EdgeInsets.symmetric(vertical: 50, horizontal: 10),
+            margin: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             padding: (EdgeInsets.all(10)),
-            color: Colors.blueGrey[800],
+            color: currCardColor,
             child: ListView.separated(
                 separatorBuilder: (BuildContext context, int index) =>
                     Divider(height: 10, thickness: 0),
@@ -35,8 +35,8 @@ class _MessagesPageState extends State<MessagesPage> {
                       FlatButton(
                           onPressed: () {},
                           padding: EdgeInsets.all(20),
-                          color: Colors.black,
-                          textColor: Colors.amber,
+                          color: currBackgroundColor,
+                          textColor: accentColor,
                           child: Container(
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,17 +44,17 @@ class _MessagesPageState extends State<MessagesPage> {
                                   children: [
                                 Container(
                                     margin: EdgeInsets.only(right: 10),
+                                    padding: EdgeInsets.all(2),
                                     child: Icon(Icons.person,
-                                        color: Colors.black, size: 30),
+                                        color: currBackgroundColor, size: 30),
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: Colors.amber)),
+                                        color: accentColor)),
                                 Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text('Jane Doe',
-                                          style: TextStyle(fontSize: 15)),
+                                      Text('Jane Doe'),
                                       Text(
                                           'text post text post text post text post',
                                           style: TextStyle(fontSize: 10))
