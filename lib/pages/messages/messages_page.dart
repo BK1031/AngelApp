@@ -53,7 +53,8 @@ class _MessagesPageState extends State<MessagesPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text('Jane Doe'),
+                                      Text('Jane Doe',
+                                          style: TextStyle(fontSize: 15)),
                                       Text(
                                           'text post text post text post text post',
                                           style: TextStyle(fontSize: 10))
