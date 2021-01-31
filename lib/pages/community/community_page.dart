@@ -44,128 +44,135 @@ class _CommunityPageState extends State<CommunityPage> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    new Container(
-                      color: currBackgroundColor,
-                      height: 143,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                              Container(
-                                  width: 30,
-                                  height: 30,
-                                  margin: EdgeInsets.only(right: 7, left: 8),
-                                  padding: EdgeInsets.all(3),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: CachedNetworkImage(imageUrl: '$url', height: 30, width: 30, fit: BoxFit.cover)
-                                  ),
-                                  //Icon(Icons.person, color: currBackgroundColor, size: 25),
-                                  //decoration: BoxDecoration(shape: BoxShape.circle, color: accentColor)),
-                                  ),
-                              Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                children: [
-                                  new Container(
-                                    height: 2.5
-                                  ),
-                                  Text(
-                                    'Jane Doe', 
-                                    style: TextStyle(fontSize: 15, color: accentColor)
-                                  ),
-                                  new Container(
-                                    height: 2
-                                  ),
-                                  Text(
-                                    '#tag, #tag, #tag', 
-                                    style: TextStyle(fontSize: 10.5, color: currDividerColor)
-                                  ),
-                                ]
-                              ),
-                              Expanded (
-                                child: new Container(),
-                              ),
+                    RaisedButton(
+                      hoverColor: currCardColor,
+                      color: currCardColor,
+                      onPressed: () {
+                        router.navigateTo(context, "/viewpost", transition: TransitionType.fadeIn);
+                      },
+                      child: new Container(
+                        color: currBackgroundColor,
+                        height: 143,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
                               Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 1.0),
-                                    child: Text(
-                                        '1.3k',
-                                        textDirection: TextDirection.ltr,
-                                        style: TextStyle(fontSize: 11.5, color: accentColor)
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                Container(
+                                    width: 30,
+                                    height: 30,
+                                    margin: EdgeInsets.only(right: 7, left: 8),
+                                    padding: EdgeInsets.all(3),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: CachedNetworkImage(imageUrl: '$url', height: 30, width: 30, fit: BoxFit.cover)
+                                    ),
+                                    //Icon(Icons.person, color: currBackgroundColor, size: 25),
+                                    //decoration: BoxDecoration(shape: BoxShape.circle, color: accentColor)),
+                                    ),
+                                Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    new Container(
+                                      height: 2.5
+                                    ),
+                                    Text(
+                                      'Jane Doe', 
+                                      style: TextStyle(fontSize: 15, color: accentColor)
+                                    ),
+                                    new Container(
+                                      height: 2
+                                    ),
+                                    Text(
+                                      '#tag, #tag, #tag', 
+                                      style: TextStyle(fontSize: 10.5, color: currDividerColor)
+                                    ),
+                                  ]
+                                ),
+                                Expanded (
+                                  child: new Container(),
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 1.0),
+                                      child: Text(
+                                          '1.3k',
+                                          textDirection: TextDirection.ltr,
+                                          style: TextStyle(fontSize: 11.5, color: accentColor)
+                                        ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8, right: 8.0),
+                                      child: FloatingActionButton(
+                                        child: likeButton,
+                                        tooltip: 'Like this post!',
+                                        mini: true,
+                                        backgroundColor: currBackgroundColor,
+                                        onPressed: () {
+                                          setState(() {
+                                            if (likeButtonNumber == 0) {
+                                              likeButton = Icon(
+                                                Icons.favorite,
+                                                color: accentColor,
+                                                size: 23.0
+                                              );
+                                              likeButtonNumber = 1;
+                                            }
+                                            else {
+                                              likeButton = Icon(
+                                                Icons.favorite_border,
+                                                color: accentColor,
+                                                size: 23.0
+                                              );
+                                              likeButtonNumber = 0;
+                                            }
+                                          });
+                                        } // onPressed
                                       ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8, right: 8.0),
-                                    child: FloatingActionButton(
-                                      child: likeButton,
-                                      tooltip: 'Like this post!',
-                                      mini: true,
-                                      backgroundColor: currBackgroundColor,
-                                      onPressed: () {
-                                        setState(() {
-                                          if (likeButtonNumber == 0) {
-                                            likeButton = Icon(
-                                              Icons.favorite,
-                                              color: accentColor,
-                                              size: 23.0
-                                            );
-                                            likeButtonNumber = 1;
-                                          }
-                                          else {
-                                            likeButton = Icon(
-                                              Icons.favorite_border,
-                                              color: accentColor,
-                                              size: 23.0
-                                            );
-                                            likeButtonNumber = 0;
-                                          }
-                                        });
-                                      } // onPressed
+                                    )
+                                  ],
+                                )
+                              ]),
+                              Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: new Container(
+                                  height: 75,
+                                  color: currCardColor,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 13.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Post Title',
+                                          textDirection: TextDirection.ltr,
+                                          style: TextStyle(fontSize: 16, color: accentColor)
+                                        ),
+                                        new Container(
+                                          height: 8
+                                        ),
+                                        Text(
+                                          '$textpostcontent',
+                                          textDirection: TextDirection.ltr,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(fontSize: 12, color: accentColor)
+                                        )
+                                      ],
                                     ),
                                   )
-                                ],
-                              )
-                            ]),
-                            Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: new Container(
-                                height: 75,
-                                color: currCardColor,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 13.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Post Title',
-                                        textDirection: TextDirection.ltr,
-                                        style: TextStyle(fontSize: 16, color: accentColor)
-                                      ),
-                                      new Container(
-                                        height: 8
-                                      ),
-                                      Text(
-                                        '$textpostcontent',
-                                        textDirection: TextDirection.ltr,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 12, color: accentColor)
-                                      )
-                                    ],
-                                  ),
-                                )
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ))
+                            ],
+                          ),
+                        )),
+                    )
                   ],
                 );
               })
