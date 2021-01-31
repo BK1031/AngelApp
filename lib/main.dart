@@ -61,7 +61,7 @@ void main() {
   }));
   router.define('/map/place/:id', handler: new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    return new PlaceDetailsPage(params[":id"]);
+    return new PlaceDetailsPage(params["id"][0]);
   }));
 
   // COMMUNITY ROUTES

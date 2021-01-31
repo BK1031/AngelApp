@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:html';
-
 import 'package:angel_app/utils/config.dart';
 import 'package:angel_app/utils/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -11,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:location/location.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -99,7 +96,7 @@ class _MapPageState extends State<MapPage> {
         placeList = json.decode(response.body)['predictions'];
       });
     } else {
-      window.alert('Failed to load predictions');
+      print('Failed to load predictions');
     }
   }
 
@@ -120,7 +117,7 @@ class _MapPageState extends State<MapPage> {
         getPlaceDetails(placeList[0]["place_id"]);
       }
     } else {
-      window.alert('Failed to load predictions');
+      print('Failed to load predictions');
     }
   }
 
@@ -184,7 +181,7 @@ class _MapPageState extends State<MapPage> {
         );
       });
     } else {
-      window.alert('Failed to load place');
+      print('Failed to load place');
     }
   }
 
