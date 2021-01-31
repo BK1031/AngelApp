@@ -24,11 +24,7 @@ class _MessagesPageState extends State<MessagesPage> {
         body: Container(
             margin: EdgeInsets.only(left: 10),
             padding: (EdgeInsets.all(10)),
-            decoration: BoxDecoration(
-                color: currCardColor,
-                border: Border(
-                    left: BorderSide(color: accentColor, width: 2),
-                    right: BorderSide(color: accentColor, width: 2))),
+            color: currCardColor,
             child: ListView.separated(
                 separatorBuilder: (BuildContext context, int index) =>
                     Divider(height: 10, thickness: 0),
@@ -54,7 +50,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                         borderRadius: BorderRadius.circular(15),
                                         child: CachedNetworkImage(
                                             imageUrl:
-                                                'https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.eharmony.co.uk%2Fdating-advice%2Fwp-content%2Fuploads%2F2011%2F04%2Fprofilephotos-960x640.jpg&imgrefurl=https%3A%2F%2Fwww.eharmony.co.uk%2Fdating-advice%2Fusing-eharmony%2Fdating-profile-pictures-you-need&tbnid=kfAk523mhI1dfM&vet=12ahUKEwi9tpDZ-cTuAhUNaKwKHZI5CHQQMygWegUIARD9AQ..i&docid=MXCLI9y8n7n4VM&w=960&h=640&q=profile%20pic&safe=strict&ved=2ahUKEwi9tpDZ-cTuAhUNaKwKHZI5CHQQMygWegUIARD9AQ',
+                                                'https://picsum.photos/250?image=9',
                                             height: 30,
                                             width: 30,
                                             fit: BoxFit.cover))),
@@ -64,7 +60,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                     children: [
                                       Text('Jane Doe'),
                                       Text(
-                                          'text post text post text post text post',
+                                          'text post text post text post text post...',
                                           style: TextStyle(fontSize: 10))
                                     ])
                               ])))
