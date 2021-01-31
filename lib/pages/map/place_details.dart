@@ -101,7 +101,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                           ),
                         ),
                         new Padding(padding: EdgeInsets.all(4)),
-                        new Text(event.snapshot.val()["anonymous"] ? "Anonymous" : "${user.firstName} ${user.lastName}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                        new Text(event.snapshot.val()["anonymous"] ? "Anonymous" : user.username, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                       ]
                     ),
                     new Padding(padding: EdgeInsets.all(4)),

@@ -1,3 +1,7 @@
+import 'package:angel_app/pages/auth/auth_checker_page.dart';
+import 'package:angel_app/pages/auth/login_page.dart';
+import 'package:angel_app/pages/auth/profile_page.dart';
+import 'package:angel_app/pages/auth/register_page.dart';
 import 'package:angel_app/pages/community/new_post_page.dart';
 import 'package:angel_app/pages/community/view_post_page.dart';
 import 'package:angel_app/pages/home/home_page.dart';
@@ -13,9 +17,6 @@ import 'utils/service_account.dart';
 import 'package:fluro/fluro.dart';
 import 'utils/config.dart';
 import 'package:angel_app/pages/tabs/tabs_page.dart';
-import 'package:angel_app/pages/profile/login_page.dart';
-import 'package:angel_app/pages/profile/profile_page.dart';
-import 'package:angel_app/pages/profile/sign_up_page.dart';
 import 'package:angel_app/pages/messages/dm_page.dart';
 
 void main() {
@@ -33,8 +34,12 @@ void main() {
   }));
   router.define('/register', handler: new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    return new SignUpPage();
+    return new RegisterPage();
   }));
+  router.define('/check-auth', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+        return new CheckAuthPage();
+      }));
   router.define('/profile', handler: new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new ProfilePage();
@@ -102,7 +107,7 @@ void main() {
     debugShowCheckedModeBanner: false,
     theme: mainTheme,
     color: currBackgroundColor,
-    initialRoute: '/',
+    initialRoute: '/check-auth',
     onGenerateRoute: router.generator,
   ));
 }

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:html';
+import 'package:angel_app/models/user.dart';
 import 'package:angel_app/utils/config.dart';
 import 'package:angel_app/utils/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -9,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:location/location.dart';
+import 'package:firebase/firebase.dart' as fb;
 
 class MapPage extends StatefulWidget {
   @override
@@ -16,6 +19,8 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+
+  final Storage _localStorage = window.localStorage;
 
   TextEditingController _textController = new TextEditingController();
   FocusNode textFocusNode = new FocusNode();
@@ -35,6 +40,13 @@ class _MapPageState extends State<MapPage> {
   @override
   void initState() {
     super.initState();
+    if (_localStorage.containsKey("userID")) {
+      fb.database().ref("users").child(_localStorage["userID"]).once("value").then((value) {
+        setState(() {
+          currUser = User.fromSnapshot(value.snapshot);
+        });
+      });
+    }
     initLocation();
     textFocusNode.addListener(() {
       _mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(

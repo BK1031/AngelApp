@@ -13,71 +13,36 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            new Text("Quick links to pages for testing\n(replace later)"),
-            new CupertinoButton(
-              child: new Text("Main App"),
-              color: mainColor,
-              onPressed: () {
-                router.navigateTo(context, "/app",
-                    transition: TransitionType.fadeIn);
-              },
-            ),
-            new CupertinoButton(
-              child: new Text("Go to Home"),
-              color: mainColor,
-              onPressed: () {
-                router.navigateTo(context, "/home",
-                    transition: TransitionType.fadeIn);
-              },
-            ),
-            new CupertinoButton(
-              child: new Text("Go to Map"),
-              color: mainColor,
-              onPressed: () {
-                router.navigateTo(context, "/map",
-                    transition: TransitionType.fadeIn);
-              },
-            ),
-            new CupertinoButton(
-              child: new Text("Go to Login"),
-              color: mainColor,
-              onPressed: () {
-                router.navigateTo(context, "/login",
-                    transition: TransitionType.fadeIn);
-              },
-            ),
-            new CupertinoButton(
-              child: new Text("Go to Register"),
-              color: mainColor,
-              onPressed: () {
-                router.navigateTo(context, "/register",
-                    transition: TransitionType.fadeIn);
-              },
-            ),
-            new CupertinoButton(
-              child: new Text("Go to Profile"),
-              color: mainColor,
-              onPressed: () {
-                router.navigateTo(context, "/profile",
-                    transition: TransitionType.fadeIn);
-              },
-            ),
-            new CupertinoButton(
-              child: new Text("Go to Community"),
-              color: mainColor,
-              onPressed: () {
-                router.navigateTo(context, "/community",
-                    transition: TransitionType.fadeIn);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+        backgroundColor: currBackgroundColor,
+        body: SingleChildScrollView(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                new Padding(padding: EdgeInsets.all(16)),
+                Center(
+                  child: Image(
+                      height: 50, image: AssetImage('images/angel-logo.png')),
+                ),
+                new Padding(padding: EdgeInsets.all(16)),
+                Text(
+                    "Welcome to\nAngel",
+                    style: TextStyle(color: mainColor, fontSize: 40, fontWeight: FontWeight.bold)
+                ),
+                new Padding(padding: EdgeInsets.all(16)),
+                new Padding(padding: EdgeInsets.all(32)),
+                new Container(
+                  width: double.infinity,
+                  child: CupertinoButton(
+                      color: mainColor,
+                      child: new Text("Get Started", style: TextStyle(fontSize: 20, color: Colors.white),),
+                    onPressed: () {
+                      router.navigateTo(context, "/register",
+                          transition: TransitionType.fadeIn, replace: true);
+                    }
+                    ),
+                )
+              ],
+            )));
   }
 }

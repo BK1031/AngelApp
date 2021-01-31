@@ -4,7 +4,6 @@ import 'package:angel_app/utils/config.dart';
 import 'package:angel_app/utils/theme.dart';
 import 'package:angel_app/pages/community/community_page.dart';
 import 'package:angel_app/pages/messages/messages_page.dart';
-import 'package:angel_app/pages/profile/profile_page.dart';
 import 'package:fluro/fluro.dart';
 
 class TabsPage extends StatelessWidget {

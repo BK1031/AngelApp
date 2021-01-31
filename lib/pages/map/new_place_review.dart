@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:html';
+import 'package:angel_app/models/user.dart';
 import 'package:firebase/firebase.dart' as fb;
 import 'package:angel_app/utils/config.dart';
 import 'package:angel_app/utils/theme.dart';
@@ -14,6 +16,8 @@ class NewPlaceReviewPage extends StatefulWidget {
 }
 
 class _NewPlaceReviewPageState extends State<NewPlaceReviewPage> {
+
+  final Storage _localStorage = window.localStorage;
 
   String id;
   var placeDetails;
@@ -32,6 +36,13 @@ class _NewPlaceReviewPageState extends State<NewPlaceReviewPage> {
   @override
   void initState() {
     super.initState();
+    if (_localStorage.containsKey("userID")) {
+      fb.database().ref("users").child(_localStorage["userID"]).once("value").then((value) {
+        setState(() {
+          currUser = User.fromSnapshot(value.snapshot);
+        });
+      });
+    }
     getPlaceDetails(id);
   }
 
