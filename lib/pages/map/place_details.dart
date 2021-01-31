@@ -4,10 +4,12 @@ import 'package:angel_app/models/user.dart';
 import 'package:angel_app/utils/config.dart';
 import 'package:angel_app/utils/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:firebase/firebase.dart' as fb;
+import 'package:intl/intl.dart';
 
 class PlaceDetailsPage extends StatefulWidget {
   String id;
@@ -82,8 +84,9 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
             padding: EdgeInsets.only(bottom: 8),
             child: new Card(
               child: new Container(
-                padding: EdgeInsets.all(8),
+                padding: EdgeInsets.all(16),
                 child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     new Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,17 +95,19 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                         Container(
                           width: 30,
                           height: 30,
-                          margin: EdgeInsets.only(right: 7, left: 8),
-                          padding: EdgeInsets.all(3),
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(15),
                               child: CachedNetworkImage(imageUrl: user.profilePic, height: 30, width: 30, fit: BoxFit.cover)
                           ),
                         ),
-                        new Text("Jane Doe", style: TextStyle(fontWeight: FontWeight.bold),),
+                        new Padding(padding: EdgeInsets.all(4)),
+                        new Text(event.snapshot.val()["anonymous"] ? "Anonymous" : "${user.firstName} ${user.lastName}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                       ]
                     ),
-                    new Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat elit euismod, feugiat metus et, consequat ante. Phasellus augue metus, finibus in varius non, efficitur ut felis.", style: TextStyle(),),
+                    new Padding(padding: EdgeInsets.all(4)),
+                    new Text(DateFormat("yMMMd").format(DateTime.parse(event.snapshot.val()["date"])), style: TextStyle(color: accentColor, fontStyle: FontStyle.italic)),
+                    new Padding(padding: EdgeInsets.all(2)),
+                    new Text(event.snapshot.val()["body"], style: TextStyle(),),
                   ],
                 ),
               ),
@@ -120,6 +125,12 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
         backgroundColor: currCardColor,
         brightness: Brightness.dark,
         title: Text("Details", style: TextStyle(color: mainColor),),
+      ),
+      floatingActionButton: new FloatingActionButton(
+        child: new Icon(Icons.add),
+        onPressed: () {
+          router.navigateTo(context, "/map/place/$id/new", transition: TransitionType.nativeModal);
+        },
       ),
       backgroundColor: currBackgroundColor,
       body: Container(
@@ -177,7 +188,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                         child: new Container(
                           height: 65,
                           width: 65,
-                          child: new Image.asset("images/tampon.png", color: tampon ? Colors.white : Colors.grey, height: 50, width: 50, fit: BoxFit.contain),
+                          child: new Image.asset("images/tampon.png", color: tampon ? Colors.white : Colors.grey, height: 35, width: 35, fit: BoxFit.scaleDown),
                         ),
                       ),
                     ),
@@ -189,7 +200,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                         child: new Container(
                           height: 65,
                           width: 65,
-                          child: new Image.asset("images/angel-shot.png", color: angelShot ? Colors.white : Colors.grey, height: 50, width: 50, fit: BoxFit.contain),
+                          child: new Image.asset("images/angel-shot.png", color: angelShot ? Colors.white : Colors.grey, height: 35, width: 35, fit: BoxFit.scaleDown),
                         ),
                       ),
                     ),
@@ -201,7 +212,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                         child: new Container(
                           height: 65,
                           width: 65,
-                          child: new Image.asset("images/well-lit.png", color: wellLit ? Colors.white : Colors.grey, height: 50, width: 50, fit: BoxFit.contain),
+                          child: new Image.asset("images/well-lit.png", color: wellLit ? Colors.white : Colors.grey, height: 35, width: 35, fit: BoxFit.scaleDown),
                         ),
                       ),
                     ),
@@ -213,7 +224,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                         child: new Container(
                           height: 65,
                           width: 65,
-                          child: new Image.asset("images/women-owned.png", color: womenOwned ? Colors.white : Colors.grey, height: 50, width: 50, fit: BoxFit.contain),
+                          child: new Image.asset("images/women-owned.png", color: womenOwned ? Colors.white : Colors.grey, height: 35, width: 35, fit: BoxFit.scaleDown),
                         ),
                       ),
                     )
@@ -227,6 +238,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
+              new Padding(padding: EdgeInsets.all(8)),
               new Container(
                 child: new Column(
                   children: reviews,

@@ -1,8 +1,8 @@
 import 'package:angel_app/pages/community/new_post_page.dart';
 import 'package:angel_app/pages/community/view_post_page.dart';
-import 'package:angel_app/pages/community/menu_bar_page.dart';
 import 'package:angel_app/pages/home/home_page.dart';
 import 'package:angel_app/pages/map/map_page.dart';
+import 'package:angel_app/pages/map/new_place_review.dart';
 import 'package:angel_app/pages/map/place_details.dart';
 import 'package:angel_app/pages/onboarding_page.dart';
 import 'package:angel_app/pages/tab_bar_controller.dart';
@@ -63,6 +63,10 @@ void main() {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new PlaceDetailsPage(params["id"][0]);
   }));
+  router.define('/map/place/:id/new', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+        return new NewPlaceReviewPage(params["id"][0]);
+      }));
 
   // COMMUNITY ROUTES
   router.define('/community', handler: new Handler(
@@ -73,10 +77,10 @@ void main() {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new AddNewPostPage();
   }));
-  // router.define('/viewpost', handler: new Handler(
-  //     handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-  //   return new ViewPostPage();
-  // }));
+  router.define('/viewpost', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return new ViewPostPage();
+  }));
   // router.define('/menubar', handler: new Handler(
   //     handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   //   return new MenuBarPage();

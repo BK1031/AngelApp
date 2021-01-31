@@ -1,4 +1,3 @@
-import 'package:angel_app/pages/community/menu_bar_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:angel_app/pages/community/community_page.dart';
@@ -12,7 +11,6 @@ class TabsPage extends StatelessWidget {
         home: DefaultTabController(
             length: 2,
             child: Scaffold(
-              drawer: MenuBarPage(),
               appBar: AppBar(
                 leading: Container(
                     margin: EdgeInsets.all(15),

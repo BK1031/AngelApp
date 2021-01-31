@@ -1,3 +1,4 @@
+import 'package:angel_app/models/user.dart';
 import 'package:fluro/fluro.dart';
 import 'package:firebase/firebase.dart' as fb;
 import '../models/version.dart';
@@ -7,6 +8,8 @@ String appStatus = "";
 String appFull = "Version ${appVersion.toString()}";
 
 final router = new FluroRouter();
+
+User currUser;
 
 const String MAPS_API_KEY = "AIzaSyCqN511y9PgKxZSk2q337AKZ0_mG0G1u4Q";
 const String PROXY_URL = "https://proxy.bk1031.dev";
