@@ -38,7 +38,9 @@ class _LoginPageState extends State<LoginPage> {
                 new Padding(padding: EdgeInsets.all(16)),
                 Text(
                     "Login to\nAngel",
-                    style: TextStyle(color: mainColor, fontSize: 40, fontWeight: FontWeight.bold)
+                    style: TextStyle(color: mainColor,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold)
                 ),
                 new Padding(padding: EdgeInsets.all(16)),
                 TextField(
@@ -70,17 +72,25 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       fb.auth().setPersistence("local");
                       try {
-                        fb.auth().signInWithEmailAndPassword(user.email, password).then((value) async {
+                        fb.auth().signInWithEmailAndPassword(
+                            user.email, password).then((value) async {
                           currUser.userID = value.user.uid;
-                          _localStorage["userID"] = fb.auth().currentUser.uid;
-                          router.navigateTo(context, "/check-auth", transition: TransitionType.fadeIn, replace: true);
+                          _localStorage["userID"] = fb
+                              .auth()
+                              .currentUser
+                              .uid;
+                          router.navigateTo(context, "/check-auth",
+                              transition: TransitionType.fadeIn, replace: true);
                         });
                       } catch (e) {
-                        window.alert("An error occured while logging into your account: ${e.toString()}");
+                        window.alert(
+                            "An error occured while logging into your account: ${e
+                                .toString()}");
                       }
                     },
                     color: mainColor,
-                    child: new Text("Login", style: TextStyle(fontSize: 20, color: Colors.white),),
+                    child: new Text("Login",
+                      style: TextStyle(fontSize: 20, color: Colors.white),),
                   ),
                 ),
                 new Padding(padding: EdgeInsets.all(8)),
@@ -88,9 +98,11 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   child: CupertinoButton(
                     onPressed: () {},
-                    child: new Text("Forgot Password?", style: TextStyle(fontSize: 20, color: accentColor),),
+                    child: new Text("Forgot Password?",
+                      style: TextStyle(fontSize: 20, color: accentColor),),
                   ),
                 ),
               ],
             )));
+  }
 }
