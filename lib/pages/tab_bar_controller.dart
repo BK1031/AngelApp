@@ -12,13 +12,13 @@ class TabBarController extends StatefulWidget {
 
 class _TabBarControllerState extends State<TabBarController> {
 
-  Widget _body = MapPage();
+  List<Widget> _bodyWidgets = [HomePage(), MapPage(), TabsPage()];
   int _currTab = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _body,
+      body: _bodyWidgets[_currTab],
       backgroundColor: currBackgroundColor,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currTab,
@@ -32,26 +32,6 @@ class _TabBarControllerState extends State<TabBarController> {
           setState(() {
             _currTab = index;
           });
-          switch (_currTab) {
-            case 0: {
-              setState(() {
-                _body = HomePage();
-              });
-              break;
-            }
-            case 1: {
-              setState(() {
-                _body = MapPage();
-              });
-              break;
-            }
-            case 2: {
-              setState(() {
-                _body = TabsPage();
-              });
-              break;
-            }
-          }
         },
         items: [
           BottomNavigationBarItem(
