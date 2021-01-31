@@ -65,7 +65,7 @@ class TabsPage extends StatelessWidget {
                         right: BorderSide(width: 2, color: accentColor)),
                   ),
                   labelColor: accentColor,
-                  tabs: [Tab(text: 'community'), Tab(text: 'messages')]),
+                  tabs: [Tab(text: 'Community'), Tab(text: 'Messages')]),
             ),
             body:
             TabBarView(children: [CommunityPage(), MessagesPage()])));

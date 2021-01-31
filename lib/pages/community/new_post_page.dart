@@ -1,9 +1,13 @@
+import 'dart:html';
+
+import 'package:angel_app/models/user.dart';
 import 'package:angel_app/utils/config.dart';
 import 'package:angel_app/utils/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:charts_flutter/flutter.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:firebase/firebase.dart' as fb;
 import 'package:flutter/material.dart';
 
 class AddNewPostPage extends StatefulWidget {
@@ -12,25 +16,35 @@ class AddNewPostPage extends StatefulWidget {
 }
 
 class _AddNewPostPageState extends State<AddNewPostPage> {
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
+  TextEditingController tagsController = TextEditingController();
+
+  final Storage _localStorage = window.localStorage;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_localStorage.containsKey("userID")) {
+      fb.database().ref("users").child(_localStorage["userID"])
+          .once("value")
+          .then((value) {
+        setState(() {
+          currUser = User.fromSnapshot(value.snapshot);
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController titleController = TextEditingController();
-    TextEditingController contentController = TextEditingController();
-    TextEditingController tagsController = TextEditingController();
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 70,
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        backgroundColor: currCardColor,
-        title: Text(
-          'Create new post',
-          style: TextStyle(
-            color: accentColor,
-            fontSize: 22
-          )
-        )
-      ),
+        appBar: AppBar(
+          backgroundColor: currCardColor,
+          brightness: Brightness.dark,
+          title: Text("New Post", style: TextStyle(color: mainColor),),
+        ),
       backgroundColor: currBackgroundColor,
         body: Container(
           child: Column(
@@ -113,54 +127,31 @@ class _AddNewPostPageState extends State<AddNewPostPage> {
                     SizedBox(
                       height: 15
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: (MediaQuery.of(context).size.width/2) - 40,
-                          height: 40,
-                          child: RaisedButton( // Cancel button
-                            child: Container(
-                              child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                  color: currDividerColor,
-                                  fontSize: 13,
-                                )
-                              )
-                            ),
-                            color: currCardColor,
-                            onPressed: () {
-                              router.navigateTo(context, "/community", transition: TransitionType.fadeIn);
-                            }
-                          ),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(16),
+                      child: CupertinoButton( // Publish button
+                        child: Container(
+                          child: Text(
+                            'Publish',
+                            style: TextStyle(
+                              color: accentColor,
+                              fontSize: 20,
+                            )
+                          )
                         ),
-                        SizedBox(
-                          width: 30
-                        ),
-                        SizedBox(
-                          width: (MediaQuery.of(context).size.width/2) - 40,
-                          height: 40,
-                          child: RaisedButton( // Publish button
-                            child: Container(
-                              child: Text(
-                                'Publish',
-                                style: TextStyle(
-                                  color: currBackgroundColor,
-                                  fontSize: 15,
-                                )
-                              )
-                            ),
-                            color: accentColor,
-                            onPressed: () {
-                              // Collect user data
-                              debugPrint('$titleController \n $contentController \n $tagsController');
-                              router.navigateTo(context, "/community", transition: TransitionType.fadeIn);
-                            }
-                          ),
-                        )
-                      ],
+                        color: currCardColor,
+                        onPressed: () {
+                          fb.database().ref("posts").push().set({
+                            "author": currUser.userID,
+                            "date": DateTime.now().toString(),
+                            "title": titleController.text,
+                            "body": contentController.text,
+                            "tags": tagsController.text.split(" ").join(", "),
+                          });
+                          router.pop(context);
+                        }
+                      ),
                     )
                   ],
                 ),
