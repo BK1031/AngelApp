@@ -93,33 +93,42 @@ class _CommunityPageState extends State<CommunityPage> {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                      '1.3k',
-                                      textDirection: TextDirection.ltr,
-                                      style: TextStyle(fontSize: 11.5, color: accentColor)
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 1.0),
+                                    child: Text(
+                                        '1.3k',
+                                        textDirection: TextDirection.ltr,
+                                        style: TextStyle(fontSize: 11.5, color: accentColor)
+                                      ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8, right: 8.0),
+                                    child: FloatingActionButton(
+                                      child: likeButton,
+                                      tooltip: 'Like this post!',
+                                      mini: true,
+                                      backgroundColor: currBackgroundColor,
+                                      onPressed: () {
+                                        setState(() {
+                                          if (likeButtonNumber == 0) {
+                                            likeButton = Icon(
+                                              Icons.favorite,
+                                              color: accentColor,
+                                              size: 23.0
+                                            );
+                                            likeButtonNumber = 1;
+                                          }
+                                          else {
+                                            likeButton = Icon(
+                                              Icons.favorite_border,
+                                              color: accentColor,
+                                              size: 23.0
+                                            );
+                                            likeButtonNumber = 0;
+                                          }
+                                        });
+                                      } // onPressed
                                     ),
-                                  
-                                  FloatingActionButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        if (likeButtonNumber == 0) {
-                                          likeButton = Icon(
-                                            Icons.favorite,
-                                            color: accentColor,
-                                            size: 23.0
-                                          );
-                                          likeButtonNumber = 1;
-                                        }
-                                        else {
-                                          likeButton = Icon(
-                                            Icons.favorite_border,
-                                            color: accentColor,
-                                            size: 23.0
-                                          );
-                                          likeButtonNumber = 0;
-                                        }
-                                      });
-                                    } // onPressed
                                   )
                                 ],
                               )
