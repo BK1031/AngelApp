@@ -1,3 +1,5 @@
+# Angel
+
 ## Inspiration
 
 Drawing inspiration from “Angel Shots” or “Guardian Angel Shots”, we created Angel as a way for women to always have someone looking out for them. An “Angel Shot” is a coded order that women can say to bartenders or waiters at bars to signal they need assistance. The different varieties of angel shots could result in having an employee escort you to your car, calling an uber for you, or in extreme cases calling the police for you. We loved the idea that women could feel safe and protected without having to draw much attention to themselves, but, as a team of mainly high school seniors, we wanted to create something that could be applicable in places beyond just bars or nightclubs. 
@@ -32,3 +34,13 @@ Most of our team had to learn a lot during this weekend, either their first obje
 ## What's next for Angel
 
 In the future, we hope to gather more users from high school and college campuses to help incoming students prepare for campus life and be cautious of their surroundings. Most of our team will be entering college next year, and as we settle in with our peers in new cities we hope Angel can guide students to make safe and well-informed decisions. We also hope to use feedback from these new users and implement new features into Angel. One feature that we think would be a very beneficial addition is a trip tracker that will keep track of the user’s route when they are outside at night, and will automatically alert the authorities if the user is in trouble.
+
+## Credits
+- [Kayla Kelsall](https://github.com/kaylakelsall)
+  - UI/UX Design
+- [Anushka Narasani](https://github.com/notanushka)
+  - Front-End Development
+ - [Natasha Parker](https://github.com/natasha0)
+    - Front-End Development
+- [Bharat Kathi](https://github.com/bk1031)
+  - Server-Side Development
