@@ -37,6 +37,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
       // )));
       setState(() {
         placeDetails = json.decode(response.body)['result'];
+        print(placeDetails);
       });
     } else {
       window.alert('Failed to load place');
@@ -48,7 +49,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: currCardColor,
-        title: Text("Details"),
+        title: Text("Details", style: TextStyle(color: mainColor),),
       ),
       body: Container(
         child: SingleChildScrollView(

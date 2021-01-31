@@ -12,13 +12,21 @@ class TabBarController extends StatefulWidget {
 
 class _TabBarControllerState extends State<TabBarController> {
 
+  PageController pageController = PageController(
+    initialPage: 1,
+    keepPage: true,
+  );
   List<Widget> _bodyWidgets = [HomePage(), MapPage(), TabsPage()];
   int _currTab = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _bodyWidgets[_currTab],
+      body: PageView(
+        controller: pageController,
+        physics: NeverScrollableScrollPhysics(),
+        children: <Widget>[HomePage(), MapPage(), TabsPage()],
+      ),
       backgroundColor: currBackgroundColor,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currTab,
@@ -32,6 +40,7 @@ class _TabBarControllerState extends State<TabBarController> {
           setState(() {
             _currTab = index;
           });
+          pageController.animateToPage(index, duration: Duration(milliseconds: 300), curve: Curves.ease);
         },
         items: [
           BottomNavigationBarItem(

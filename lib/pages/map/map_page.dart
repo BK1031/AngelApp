@@ -128,7 +128,7 @@ class _MapPageState extends State<MapPage> {
     var response = await get("$PROXY_URL/https://maps.googleapis.com/maps/api/place/details/json?place_id=$id&key=$MAPS_API_KEY");
     if (response.statusCode == 200) {
       _mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: LatLng(json.decode(response.body)["result"]["geometry"]["location"]["lat"], json.decode(response.body)["result"]["geometry"]["location"]["lng"]),
+        target: LatLng(json.decode(response.body)["result"]["geometry"]["location"]["lat"] - 0.002, json.decode(response.body)["result"]["geometry"]["location"]["lng"]),
         zoom: 16,
       )));
       setState(() {
@@ -168,7 +168,7 @@ class _MapPageState extends State<MapPage> {
                       Container(
                         width: double.infinity,
                         child: new CupertinoButton(
-                          child: new Text("See Details", style: TextStyle(fontSize: 20, color: accentColor),),
+                          child: new Text("See Details", style: TextStyle(color: accentColor),),
                           color: currCardColor,
                           onPressed: () {
                             router.navigateTo(context, "/map/place/$id", transition: TransitionType.cupertino);
@@ -206,9 +206,6 @@ class _MapPageState extends State<MapPage> {
               markers: _markers,
               myLocationEnabled: true,
               myLocationButtonEnabled: true,
-              onTap: (location) {
-                print(location.longitude);
-              },
             ),
             new Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -274,7 +271,7 @@ class _MapPageState extends State<MapPage> {
                 new Visibility(
                   visible: placeSelected,
                   child: new Container(
-                    padding: EdgeInsets.only(left: 16, right: 16, top: 64),
+                    padding: EdgeInsets.only(left: 16, right: 16, top: 80),
                     child: placeDetailWidget
                   ),
                 ),
@@ -286,7 +283,7 @@ class _MapPageState extends State<MapPage> {
 
                     },
                     color: currBackgroundColor,
-                    child: new Text("Tag New Location", style: TextStyle(fontSize: 20, color: accentColor),),
+                    child: new Text("Start Tracking", style: TextStyle(fontSize: 20, color: accentColor),),
                   ),
                 )
               ],

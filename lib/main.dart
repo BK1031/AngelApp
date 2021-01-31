@@ -73,14 +73,14 @@ void main() {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new AddNewPostPage();
   }));
-  router.define('/viewpost', handler: new Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    return new ViewPostPage();
-  }));
-  router.define('/menubar', handler: new Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    return new MenuBarPage();
-  }));
+  // router.define('/viewpost', handler: new Handler(
+  //     handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  //   return new ViewPostPage();
+  // }));
+  // router.define('/menubar', handler: new Handler(
+  //     handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  //   return new MenuBarPage();
+  // }));
 
   // MESSAGES ROUTES
   router.define('/messages', handler: new Handler(
