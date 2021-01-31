@@ -130,7 +130,7 @@ class _CheckAuthPageState extends State<CheckAuthPage> {
                         "Server Connection Error",
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Colors.red,
+                          color: accentColor,
                           decoration: TextDecoration.none,
                           fontWeight: FontWeight.bold,
                           fontSize: 35.0,
@@ -142,7 +142,7 @@ class _CheckAuthPageState extends State<CheckAuthPage> {
                       "We encountered a problem when trying to connect you to our servers. This page will automatically disappear if a connection with the server is established.\n\nTroubleshooting Tips:\n- Check your wireless connection\n- Restart the Angel application\n- Restart your device",
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                           decoration: TextDecoration.none,
                           fontSize: 17.0,
                           fontWeight: FontWeight.normal

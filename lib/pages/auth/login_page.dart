@@ -74,7 +74,6 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         fb.auth().signInWithEmailAndPassword(
                             user.email, password).then((value) async {
-                          currUser.userID = value.user.uid;
                           _localStorage["userID"] = fb
                               .auth()
                               .currentUser

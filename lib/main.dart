@@ -79,13 +79,13 @@ void main() {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new TabsPage();
   }));
-  router.define('/newpost', handler: new Handler(
+  router.define('/community/new', handler: new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new AddNewPostPage();
   }));
-  router.define('/viewpost', handler: new Handler(
+  router.define('/community/:id', handler: new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    return new ViewPostPage();
+    return new ViewPostPage(params["id"][0]);
   }));
   // router.define('/menubar', handler: new Handler(
   //     handlerFunc: (BuildContext context, Map<String, dynamic> params) {

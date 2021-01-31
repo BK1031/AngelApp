@@ -124,7 +124,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
       appBar: AppBar(
         backgroundColor: currCardColor,
         brightness: Brightness.dark,
-        title: Text("Details", style: TextStyle(color: mainColor),),
+        title: Text("Location Details", style: TextStyle(color: mainColor),),
       ),
       floatingActionButton: new FloatingActionButton(
         child: new Icon(Icons.add),

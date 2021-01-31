@@ -7,38 +7,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ViewPostPage extends StatefulWidget {
+  String id;
+  ViewPostPage(this.id);
   @override
-  _ViewPostPageState createState() => _ViewPostPageState();
+  _ViewPostPageState createState() => _ViewPostPageState(this.id);
 }
 
 class _ViewPostPageState extends State<ViewPostPage> {
+
+  String id;
+
   FocusNode commentFocusNode = FocusNode();
   TextEditingController commentController = TextEditingController();
   String textpostcontent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In elit nunc, scelerisque ac nulla quis, ultrices mollis justo. Fusce sed ipsum nec lorem rhoncus aliquet eu nec est. Curabitur ultricies blandit orci, id varius odio egestas ut. Duis bibendum finibus metus, ut convallis tortor consectetur in. Vestibulum sollicitudin nec nisi eu pellentesque. Morbi sed cursus dolor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Cras nisl enim, dignissim sed malesuada sit amet, tempus a justo. Praesent consequat eget risus et hendrerit. Integer consectetur ipsum dolor, at posuere nunc lobortis ac. Sed ut velit nisl. Sed feugiat nulla ligula, eu consectetur elit pharetra at. Nam tempus id arcu vel tincidunt. Praesent quis augue maximus nibh iaculis porta eu eget lacus.';
   String url = 'https://miro.medium.com/max/818/1*4fnqG_q7Nj757C7f9ekOLA.png';
+
+  _ViewPostPageState(this.id);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 70,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-            child: IconButton(
-              icon: Icon(Icons.arrow_back, size: 30, color: accentColor),
-              onPressed: () {
-                router.navigateTo(context, "/community", transition: TransitionType.fadeIn);
-              },
-            ),
-            ),
-        automaticallyImplyLeading: false,
-        centerTitle: false,
         backgroundColor: currCardColor,
+          brightness: Brightness.dark,
         title: Text(
-          'Return to community page',
-          style: TextStyle(
-            color: accentColor,
-            fontSize: 20
-          )
+          'Post Details',
         )
       ),
       backgroundColor: currBackgroundColor,

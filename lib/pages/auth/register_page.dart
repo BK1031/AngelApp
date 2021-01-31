@@ -130,9 +130,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         fb.auth().setPersistence("local");
                         try {
                           fb.auth().createUserWithEmailAndPassword(user.email, password).then((value) async {
-                            currUser.userID = value.user.uid;
                             _localStorage["userID"] = fb.auth().currentUser.uid;
-                            await fb.database().ref("users").child(currUser.userID).set({
+                            await fb.database().ref("users").child(_localStorage["userID"]).set({
                               "username": user.username,
                               "email": user.email.toLowerCase(),
                               "profilePic": user.profilePic,
