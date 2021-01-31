@@ -25,14 +25,15 @@ class TabsPage extends StatelessWidget {
                     Container(
                         child: new Card(
                       elevation: 0,
-                      margin: EdgeInsets.only(left: 50),
+                      margin: EdgeInsets.only(
+                          left: 50, top: 5, right: 5, bottom: 5),
                       color: currCardColor,
                       child: Container(
                         padding: EdgeInsets.only(left: 16),
                         child: new TextField(
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            icon: Icon(Icons.search),
+                            icon: Icon(Icons.search, color: accentColor),
                           ),
                           style: TextStyle(color: accentColor),
                         ),
