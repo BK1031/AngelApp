@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:angel_app/utils/theme.dart';
+import 'package:angel_app/utils/config.dart';
+import 'package:fluro/fluro.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DmPage extends StatefulWidget {
   @override
@@ -33,13 +36,29 @@ class _DmPageState extends State<DmPage> {
                   Navigator.pop(context);
                 }),
             title: Center(
-                child: Text('User Name', style: TextStyle(color: accentColor))),
+                child: //Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //   children: [
+                    // Container(
+                    //     child: ClipRRect(
+                    //         borderRadius: BorderRadius.circular(5),
+                    //         child: CachedNetworkImage(
+                    //             imageUrl: 'https://picsum.photos/250?image=9',
+                    //             height: 60,
+                    //             width: 60,
+                    //             fit: BoxFit.contain))),
+                    Text('Jane Doe', style: TextStyle(color: accentColor))
+                //])
+                ),
             backgroundColor: currBackgroundColor,
             actions: [
               IconButton(
                   icon: Icon(Icons.account_circle),
                   color: accentColor,
-                  onPressed: () {})
+                  onPressed: () {
+                    router.navigateTo(context, "/profile",
+                        transition: TransitionType.fadeIn);
+                  })
             ]),
         body: FocusScope(
           node: _focusScopeNode,
@@ -55,6 +74,7 @@ class _DmPageState extends State<DmPage> {
             Container(
               padding: EdgeInsets.only(left: 16),
               child: new TextField(
+                cursorColor: accentColor,
                 controller: sendController,
                 onSubmitted: (text) {
                   sender.add(true);
@@ -64,12 +84,19 @@ class _DmPageState extends State<DmPage> {
                 },
                 decoration: InputDecoration(
                   border: InputBorder.none,
+                  hintText: 'Start typing here',
+                  hintStyle: TextStyle(
+                      color: accentColor.withOpacity(0.3), fontSize: 16),
                   suffixIcon: // Row(children: [
                       IconButton(
                           icon: Icon(Icons.send),
                           color: accentColor,
                           onPressed: () {
                             _focusScopeNode.nextFocus();
+                            sender.add(true);
+                            messages.add(sendController.text);
+                            sendController.clear();
+                            setState(() {});
                           }),
                   // IconButton(
                   //     icon: Icon(Icons.sentiment_satisfied_sharp),
