@@ -59,54 +59,59 @@ class _NewPlaceReviewPageState extends State<NewPlaceReviewPage> {
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    new Text(
-                      placeDetails != null ? placeDetails["name"] : "",
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  new Text(
+                    placeDetails != null ? placeDetails["name"] : "",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                  new Padding(padding: EdgeInsets.all(4)),
+                  new Text(
+                    placeDetails != null ? placeDetails["formatted_address"] : "",
+                    style: TextStyle(),
+                  ),
+                  new Padding(padding: EdgeInsets.all(8)),
+                  TextField(
+                      cursorColor: accentColor,
+                      maxLength: 700,
+                      maxLines: null,
+                      onChanged: (input) {
+                        review = input;
+                      },
+                      decoration: InputDecoration(
+                        fillColor: currCardColor,
+                        filled: true,
+                        border: OutlineInputBorder(),
+                        hintText: 'Describe your experience here',
+                        hintStyle: TextStyle(
+                          color: accentColor,
+                          fontSize: 14,
+                        ),
+                      )
+                  ),
+                  new Padding(padding: EdgeInsets.all(8)),
+                  new Container(
+                    child: new Text(
+                      "Location Amenities",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    new Padding(padding: EdgeInsets.all(4)),
-                    new Text(
-                      placeDetails != null ? placeDetails["formatted_address"] : "",
-                      style: TextStyle(),
-                    ),
-                    new Padding(padding: EdgeInsets.all(8)),
-                    TextField(
-                        cursorColor: accentColor,
-                        maxLength: 700,
-                        maxLines: null,
-                        decoration: InputDecoration(
-                          fillColor: currCardColor,
-                          filled: true,
-                          border: OutlineInputBorder(),
-                          hintText: 'Describe your experience here',
-                          hintStyle: TextStyle(
-                            color: accentColor,
-                            fontSize: 14,
-                          ),
-                        )
-                    ),
-                    new Padding(padding: EdgeInsets.all(8)),
-                    new Container(
-                      child: new Text(
-                        "Location Amenities",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    new Padding(padding: EdgeInsets.all(8)),
-                    new Container(
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          new Tooltip(
-                            message: "Tampons available?",
-                            child: new Card(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(65.0))),
-                              color: tampon ? mainColor : currCardColor,
+                  ),
+                  new Padding(padding: EdgeInsets.all(8)),
+                  new Container(
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        new Tooltip(
+                          message: "Tampons available?",
+                          child: new Card(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(65.0))),
+                            color: tampon ? mainColor : currCardColor,
+                            child: InkWell(
+                              onTap: () => setState(() {tampon = !tampon;}),
                               child: new Container(
                                 height: 65,
                                 width: 65,
@@ -114,11 +119,14 @@ class _NewPlaceReviewPageState extends State<NewPlaceReviewPage> {
                               ),
                             ),
                           ),
-                          new Tooltip(
-                            message: "Angel shot available?",
-                            child: new Card(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(65.0))),
-                              color: angelShot ? mainColor : currCardColor,
+                        ),
+                        new Tooltip(
+                          message: "Angel shot available?",
+                          child: new Card(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(65.0))),
+                            color: angelShot ? mainColor : currCardColor,
+                            child: InkWell(
+                              onTap: () => setState(() {angelShot = !angelShot;}),
                               child: new Container(
                                 height: 65,
                                 width: 65,
@@ -126,11 +134,14 @@ class _NewPlaceReviewPageState extends State<NewPlaceReviewPage> {
                               ),
                             ),
                           ),
-                          new Tooltip(
-                            message: "Well-lit surroundings?",
-                            child: new Card(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(65.0))),
-                              color: wellLit ? mainColor : currCardColor,
+                        ),
+                        new Tooltip(
+                          message: "Well-lit surroundings?",
+                          child: new Card(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(65.0))),
+                            color: wellLit ? mainColor : currCardColor,
+                            child: InkWell(
+                              onTap: () => setState(() {wellLit = !wellLit;}),
                               child: new Container(
                                 height: 65,
                                 width: 65,
@@ -138,33 +149,37 @@ class _NewPlaceReviewPageState extends State<NewPlaceReviewPage> {
                               ),
                             ),
                           ),
-                          new Tooltip(
-                            message: "Woman owned?",
-                            child: new Card(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(65.0))),
-                              color: womenOwned ? mainColor : currCardColor,
+                        ),
+                        new Tooltip(
+                          message: "Woman owned?",
+                          child: new Card(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(65.0))),
+                            color: womenOwned ? mainColor : currCardColor,
+                            child: InkWell(
+                              onTap: () => setState(() {womenOwned = !womenOwned;}),
                               child: new Container(
                                 height: 65,
                                 width: 65,
                                 child: new Image.asset("images/women-owned.png", color: womenOwned ? Colors.white : Colors.grey, height: 35, width: 35, fit: BoxFit.scaleDown),
                               ),
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        )
+                      ],
                     ),
-                    new Padding(padding: EdgeInsets.all(8)),
-                    new SwitchListTile.adaptive(
-                      title: new Text("Post this review anonymously"),
-                      value: anonymous,
-                      onChanged: (val) {
-                        setState(() {
-                          anonymous = !anonymous;
-                        });
-                      },
-                    )
-                  ],
-                ),
+                  ),
+                  new Padding(padding: EdgeInsets.all(8)),
+                  new SwitchListTile.adaptive(
+                    title: new Text("Post this review anonymously"),
+                    value: anonymous,
+                    activeColor: accentColor,
+                    onChanged: (val) {
+                      setState(() {
+                        anonymous = !anonymous;
+                      });
+                    },
+                  )
+                ],
               ),
               new Container(
                 padding: EdgeInsets.all(16),
