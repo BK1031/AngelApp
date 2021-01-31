@@ -220,7 +220,7 @@ class _MapPageState extends State<MapPage> {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       curve: Curves.easeInOut,
-                      height: locationSearchString != "" ? 350 : 58,
+                      height: locationSearchString != "" ? 350 : 65,
                       padding: EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 16),
                       child: Column(
                         children: [
