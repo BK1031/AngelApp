@@ -2,10 +2,10 @@
 
 <img src="https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/377/415/datas/original.png"
      alt="Location Rating Flow"
-     height=300 />
+     height=275 />
 <img src="https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/377/454/datas/original.png"
      alt="Community Content Flow"
-     height=300 />
+     height=275 />
 
 ## Inspiration
 
