@@ -40,9 +40,12 @@ class _MapPageState extends State<MapPage> {
     super.initState();
     initLocation();
     textFocusNode.addListener(() {
+      _mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng(_locationData.latitude, _locationData.longitude),
+        zoom: 16,
+      )));
       setState(() {
         placeSelected = false;
-        placeList.clear();
         placeDetailWidget = Container();
       });
     });
@@ -162,12 +165,15 @@ class _MapPageState extends State<MapPage> {
                         style: TextStyle(),
                       ),
                       new Padding(padding: EdgeInsets.all(4)),
-                      new CupertinoButton(
-                        child: new Text("See Details", style: TextStyle(color: accentColor),),
-                        color: currCardColor,
-                        onPressed: () {
-                          router.navigateTo(context, "/map/place/$id", transition: TransitionType.cupertino);
-                        },
+                      Container(
+                        width: double.infinity,
+                        child: new CupertinoButton(
+                          child: new Text("See Details", style: TextStyle(fontSize: 20, color: accentColor),),
+                          color: currCardColor,
+                          onPressed: () {
+                            router.navigateTo(context, "/map/place/$id", transition: TransitionType.cupertino);
+                          },
+                        ),
                       )
                     ],
                   ),
@@ -200,9 +206,9 @@ class _MapPageState extends State<MapPage> {
               markers: _markers,
               myLocationEnabled: true,
               myLocationButtonEnabled: true,
-              // onTap: (location) {
-              //   getNearestPlace(location);
-              // },
+              onTap: (location) {
+                print(location.longitude);
+              },
             ),
             new Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -214,7 +220,7 @@ class _MapPageState extends State<MapPage> {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       curve: Curves.easeInOut,
-                      height: locationSearchString != "" ? 350 : 65,
+                      height: locationSearchString != "" ? 350 : 58,
                       padding: EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 16),
                       child: Column(
                         children: [
@@ -273,12 +279,14 @@ class _MapPageState extends State<MapPage> {
                   ),
                 ),
                 new Container(
+                  padding: EdgeInsets.all(16),
+                  width: double.infinity,
                   child: CupertinoButton(
                     onPressed: () {
 
                     },
                     color: currBackgroundColor,
-                    child: new Text("Tag New Location"),
+                    child: new Text("Tag New Location", style: TextStyle(fontSize: 20, color: accentColor),),
                   ),
                 )
               ],

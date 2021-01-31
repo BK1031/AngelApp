@@ -20,6 +20,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
           children: [
             new Text("Quick links to pages for testing\n(replace later)"),
             new CupertinoButton(
+              child: new Text("Main App"),
+              color: mainColor,
+              onPressed: () {
+                router.navigateTo(context, "/app",
+                    transition: TransitionType.fadeIn);
+              },
+            ),
+            new CupertinoButton(
               child: new Text("Go to Home"),
               color: mainColor,
               onPressed: () {

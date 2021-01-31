@@ -4,6 +4,7 @@ import 'package:angel_app/pages/map/map_page.dart';
 import 'package:angel_app/pages/map/place_details.dart';
 import 'package:angel_app/pages/messages/messages_page.dart';
 import 'package:angel_app/pages/onboarding_page.dart';
+import 'package:angel_app/pages/tab_bar_controller.dart';
 import 'package:angel_app/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase/firebase.dart';
@@ -30,19 +31,20 @@ void main() {
     return new Container();
   }));
 
-  // HOME ROUTES
-  router.define('/', handler: new Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  router.define('/', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new OnboardingPage();
   }));
-  router.define('/home', handler: new Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  router.define('/app', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return new TabBarController();
+  }));
+
+  // HOME ROUTES
+  router.define('/home', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new HomePage();
   }));
 
   // MAP ROUTES
-  router.define('/map', handler: new Handler(
-      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  router.define('/map', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new MapPage();
   }));
   router.define('/map/place/:id', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
