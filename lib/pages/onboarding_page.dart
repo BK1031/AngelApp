@@ -44,18 +44,34 @@ class _OnboardingPageState extends State<OnboardingPage> {
               },
             ),
             new CupertinoButton(
-              child: new Text("Go to Community"),
+              child: new Text("Go to Login"),
               color: mainColor,
               onPressed: () {
-                router.navigateTo(context, "/community",
+                router.navigateTo(context, "/login",
                     transition: TransitionType.fadeIn);
               },
             ),
             new CupertinoButton(
-              child: new Text("Go to Messages"),
+              child: new Text("Go to Register"),
               color: mainColor,
               onPressed: () {
-                router.navigateTo(context, "/messages",
+                router.navigateTo(context, "/register",
+                    transition: TransitionType.fadeIn);
+              },
+            ),
+            new CupertinoButton(
+              child: new Text("Go to Profile"),
+              color: mainColor,
+              onPressed: () {
+                router.navigateTo(context, "/profile",
+                    transition: TransitionType.fadeIn);
+              },
+            ),
+            new CupertinoButton(
+              child: new Text("Go to Community"),
+              color: mainColor,
+              onPressed: () {
+                router.navigateTo(context, "/community",
                     transition: TransitionType.fadeIn);
               },
             ),

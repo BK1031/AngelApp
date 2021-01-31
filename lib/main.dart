@@ -1,9 +1,7 @@
-import 'package:angel_app/pages/community/community_page.dart';
 import 'package:angel_app/pages/community/new_post_page.dart';
 import 'package:angel_app/pages/home/home_page.dart';
 import 'package:angel_app/pages/map/map_page.dart';
 import 'package:angel_app/pages/map/place_details.dart';
-import 'package:angel_app/pages/messages/messages_page.dart';
 import 'package:angel_app/pages/onboarding_page.dart';
 import 'package:angel_app/pages/tab_bar_controller.dart';
 import 'package:angel_app/utils/theme.dart';
@@ -13,6 +11,9 @@ import 'utils/service_account.dart';
 import 'package:fluro/fluro.dart';
 import 'utils/config.dart';
 import 'package:angel_app/pages/tabs/tabs_page.dart';
+import 'package:angel_app/pages/profile/login_page.dart';
+import 'package:angel_app/pages/profile/profile_page.dart';
+import 'package:angel_app/pages/profile/sign_up_page.dart';
 
 void main() {
   initializeApp(
@@ -25,30 +26,39 @@ void main() {
   // AUTH ROUTES
   router.define('/login', handler: new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    return new Container();
+    return new LoginPage();
   }));
   router.define('/register', handler: new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    return new Container();
+    return new SignUpPage();
+  }));
+  router.define('/profile', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return new ProfilePage();
   }));
 
-  router.define('/', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  router.define('/', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new OnboardingPage();
   }));
-  router.define('/app', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  router.define('/app', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new TabBarController();
   }));
 
   // HOME ROUTES
-  router.define('/home', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  router.define('/home', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new HomePage();
   }));
 
   // MAP ROUTES
-  router.define('/map', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  router.define('/map', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new MapPage();
   }));
-  router.define('/map/place/:id', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  router.define('/map/place/:id', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new PlaceDetailsPage(params[":id"]);
   }));
 

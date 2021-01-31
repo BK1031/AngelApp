@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:angel_app/utils/config.dart';
 import 'package:angel_app/utils/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -13,17 +12,11 @@ class _MessagesPageState extends State<MessagesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: new RaisedButton(
-            child: Text("GO BACK"),
-            color: mainColor,
-            textColor: Colors.white,
-            onPressed: () {
-              router.pop(context);
-            }),
         backgroundColor: currBackgroundColor,
         body: Container(
-            margin: EdgeInsets.only(left: 10),
-            padding: (EdgeInsets.all(10)),
+            margin: EdgeInsets.only(left: 15),
+            padding:
+                (EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 20)),
             color: currCardColor,
             child: ListView.separated(
                 separatorBuilder: (BuildContext context, int index) =>
