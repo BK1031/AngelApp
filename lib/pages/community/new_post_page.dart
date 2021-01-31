@@ -167,7 +167,7 @@ class _AddNewPostPageState extends State<AddNewPostPage> {
               )
             ],
           )
-   )
+      )
     );
     
   }
