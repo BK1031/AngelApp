@@ -1,4 +1,5 @@
 import 'package:angel_app/pages/community/community_page.dart';
+import 'package:angel_app/pages/community/new_post_page.dart';
 import 'package:angel_app/pages/home/home_page.dart';
 import 'package:angel_app/pages/map/map_page.dart';
 import 'package:angel_app/pages/map/place_details.dart';
@@ -61,6 +62,10 @@ void main() {
   router.define('/messages', handler: new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new TabsPage();
+  }));
+  router.define('/newpost', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return new AddNewPostPage();
   }));
 
   runApp(new MaterialApp(
