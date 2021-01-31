@@ -1,7 +1,9 @@
+import 'package:angel_app/utils/config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:angel_app/utils/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluro/fluro.dart';
 
 class MessagesPage extends StatefulWidget {
   @override
@@ -27,7 +29,10 @@ class _MessagesPageState extends State<MessagesPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       FlatButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            router.navigateTo(context, "/dm",
+                                transition: TransitionType.fadeIn);
+                          },
                           padding: EdgeInsets.all(20),
                           color: currBackgroundColor,
                           textColor: accentColor,

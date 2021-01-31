@@ -16,6 +16,7 @@ import 'package:angel_app/pages/tabs/tabs_page.dart';
 import 'package:angel_app/pages/profile/login_page.dart';
 import 'package:angel_app/pages/profile/profile_page.dart';
 import 'package:angel_app/pages/profile/sign_up_page.dart';
+import 'package:angel_app/pages/messages/dm_page.dart';
 
 void main() {
   initializeApp(
@@ -65,8 +66,8 @@ void main() {
   }));
   router.define('/map/place/:id/new', handler: new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-        return new NewPlaceReviewPage(params["id"][0]);
-      }));
+    return new NewPlaceReviewPage(params["id"][0]);
+  }));
 
   // COMMUNITY ROUTES
   router.define('/community', handler: new Handler(
@@ -90,6 +91,10 @@ void main() {
   router.define('/messages', handler: new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new TabsPage();
+  }));
+  router.define('/dm', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return new DmPage();
   }));
 
   runApp(new MaterialApp(
