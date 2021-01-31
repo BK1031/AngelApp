@@ -34,4 +34,7 @@ final mainTheme = new ThemeData(
     primaryColor: mainColor,
     accentColor: mainColor,
     brightness: Brightness.dark,
+    cardTheme: CardTheme(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0)))
+    )
 );

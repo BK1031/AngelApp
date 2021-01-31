@@ -5,6 +5,7 @@ import 'dart:html';
 import 'package:angel_app/utils/config.dart';
 import 'package:angel_app/utils/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -23,6 +24,7 @@ class _MapPageState extends State<MapPage> {
   FocusNode textFocusNode = new FocusNode();
   GoogleMapController _mapController;
   Location location = new Location();
+  Set<Marker> _markers = Set();
 
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
@@ -37,6 +39,13 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     super.initState();
     initLocation();
+    textFocusNode.addListener(() {
+      setState(() {
+        placeSelected = false;
+        placeList.clear();
+        placeDetailWidget = Container();
+      });
+    });
   }
 
   Future<void> initLocation() async {
@@ -78,6 +87,7 @@ class _MapPageState extends State<MapPage> {
     });
     searchPlaces(locationSearchString.replaceAll(" ", "+"));
   }
+
   Future<void> searchPlaces(String query) async {
     print("Searching near (${_locationData.latitude}, ${_locationData.longitude})");
     var response = await get("$PROXY_URL/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&location=${_locationData.latitude},${_locationData.longitude}&key=$MAPS_API_KEY");
@@ -85,6 +95,27 @@ class _MapPageState extends State<MapPage> {
       setState(() {
         placeList = json.decode(response.body)['predictions'];
       });
+    } else {
+      window.alert('Failed to load predictions');
+    }
+  }
+
+  Future<void> getNearestPlace(LatLng coordinates) async {
+    print("Searching near (${coordinates.latitude}, ${coordinates.longitude})");
+    var response = await get("$PROXY_URL/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coordinates.latitude},${coordinates.longitude}&radius=25&key=$MAPS_API_KEY");
+    if (response.statusCode == 200) {
+      setState(() {
+        placeList = json.decode(response.body)['results'];
+      });
+      if (placeList.isNotEmpty) {
+        setState(() {
+          locationSearchString = "";
+        });
+        _textController.clear();
+        textFocusNode.unfocus();
+        print("Getting place details");
+        getPlaceDetails(placeList[0]["place_id"]);
+      }
     } else {
       window.alert('Failed to load predictions');
     }
@@ -99,7 +130,13 @@ class _MapPageState extends State<MapPage> {
       )));
       setState(() {
         placeSelected = true;
+        _markers.clear();
+        _markers.add(Marker(
+            markerId: MarkerId(id),
+            position: LatLng(json.decode(response.body)["result"]["geometry"]["location"]["lat"], json.decode(response.body)["result"]["geometry"]["location"]["lng"]),
+        ));
         placeDetailWidget = Card(
+          color: currBackgroundColor,
           child: new Container(
             padding: EdgeInsets.all(16),
             child: Row(
@@ -114,10 +151,23 @@ class _MapPageState extends State<MapPage> {
                         json.decode(response.body)["result"]["name"],
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      new Padding(padding: EdgeInsets.all(8)),
+                      new Padding(padding: EdgeInsets.all(4)),
+                      new Text(
+                        "Angel Rating: 4.8",
+                        style: TextStyle(color: accentColor, fontStyle: FontStyle.italic),
+                      ),
+                      new Padding(padding: EdgeInsets.all(4)),
                       new Text(
                         json.decode(response.body)["result"]["formatted_address"],
                         style: TextStyle(),
+                      ),
+                      new Padding(padding: EdgeInsets.all(4)),
+                      new CupertinoButton(
+                        child: new Text("See Details", style: TextStyle(color: accentColor),),
+                        color: currCardColor,
+                        onPressed: () {
+                          router.navigateTo(context, "/map/place/$id", transition: TransitionType.cupertino);
+                        },
                       )
                     ],
                   ),
@@ -147,6 +197,12 @@ class _MapPageState extends State<MapPage> {
                 _mapController.setMapStyle(mapStyle);
               },
               zoomControlsEnabled: false,
+              markers: _markers,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
+              // onTap: (location) {
+              //   getNearestPlace(location);
+              // },
             ),
             new Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -154,7 +210,7 @@ class _MapPageState extends State<MapPage> {
                 Container(
                   padding: EdgeInsets.all(16),
                   child: new Card(
-                    color: currCardColor,
+                    color: currBackgroundColor,
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       curve: Curves.easeInOut,
@@ -221,7 +277,7 @@ class _MapPageState extends State<MapPage> {
                     onPressed: () {
 
                     },
-                    color: currCardColor,
+                    color: currBackgroundColor,
                     child: new Text("Tag New Location"),
                   ),
                 )
