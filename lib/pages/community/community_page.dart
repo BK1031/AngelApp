@@ -16,6 +16,12 @@ class _CommunityPageState extends State<CommunityPage> {
   Widget build(BuildContext context) {
     String url = 'https://miro.medium.com/max/818/1*4fnqG_q7Nj757C7f9ekOLA.png';
     double iconSize = 28.0;
+    int likeButtonNumber = 0;
+    Icon likeButton = Icon(
+      Icons.favorite_border,
+      color: accentColor,
+      size: 23.0
+    );
     String textpostcontent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In elit nunc, scelerisque ac nulla quis, ultrices mollis justo. Fusce sed ipsum nec lorem rhoncus aliquet eu nec est. Curabitur ultricies blandit orci, id varius odio egestas ut. Duis bibendum finibus metus, ut convallis tortor consectetur in. Vestibulum sollicitudin nec nisi eu pellentesque. Morbi sed cursus dolor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Cras nisl enim, dignissim sed malesuada sit amet, tempus a justo. Praesent consequat eget risus et hendrerit. Integer consectetur ipsum dolor, at posuere nunc lobortis ac. Sed ut velit nisl. Sed feugiat nulla ligula, eu consectetur elit pharetra at. Nam tempus id arcu vel tincidunt. Praesent quis augue maximus nibh iaculis porta eu eget lacus.';
     return Scaffold(
       backgroundColor: currBackgroundColor,
@@ -40,7 +46,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   children: [
                     new Container(
                       color: currBackgroundColor,
-                      height: 140,
+                      height: 143,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -62,24 +68,61 @@ class _CommunityPageState extends State<CommunityPage> {
                                   //decoration: BoxDecoration(shape: BoxShape.circle, color: accentColor)),
                                   ),
                               Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: [
-                                    new Container(
-                                      height: 2.5
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                children: [
+                                  new Container(
+                                    height: 2.5
+                                  ),
+                                  Text(
+                                    'Jane Doe', 
+                                    style: TextStyle(fontSize: 15, color: accentColor)
+                                  ),
+                                  new Container(
+                                    height: 2
+                                  ),
+                                  Text(
+                                    '#tag, #tag, #tag', 
+                                    style: TextStyle(fontSize: 10.5, color: currDividerColor)
+                                  ),
+                                ]
+                              ),
+                              Expanded (
+                                child: new Container(),
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                      '1.3k',
+                                      textDirection: TextDirection.ltr,
+                                      style: TextStyle(fontSize: 11.5, color: accentColor)
                                     ),
-                                    Text(
-                                      'Jane Doe', 
-                                      style: TextStyle(fontSize: 15, color: accentColor)
-                                    ),
-                                    new Container(
-                                      height: 2
-                                    ),
-                                    Text(
-                                      '#tag, #tag, #tag', 
-                                      style: TextStyle(fontSize: 10.5, color: currDividerColor)
-                                    ),
-                                  ])
+                                  
+                                  FloatingActionButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        if (likeButtonNumber == 0) {
+                                          likeButton = Icon(
+                                            Icons.favorite,
+                                            color: accentColor,
+                                            size: 23.0
+                                          );
+                                          likeButtonNumber = 1;
+                                        }
+                                        else {
+                                          likeButton = Icon(
+                                            Icons.favorite_border,
+                                            color: accentColor,
+                                            size: 23.0
+                                          );
+                                          likeButtonNumber = 0;
+                                        }
+                                      });
+                                    } // onPressed
+                                  )
+                                ],
+                              )
                             ]),
                             Padding(
                               padding: const EdgeInsets.all(6.0),
@@ -122,6 +165,6 @@ class _CommunityPageState extends State<CommunityPage> {
   }
 
   void AddNewPost() {
-    router.navigateTo(context, "/new post", transition: TransitionType.fadeIn);
+    router.navigateTo(context, "/newpost", transition: TransitionType.fadeIn);
   }
 }
