@@ -1,5 +1,12 @@
 # Angel
 
+<img src="https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/377/415/datas/original.png"
+     alt="Location Rating Flow"
+     height=300 />
+<img src="https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/377/454/datas/original.png"
+     alt="Community Content Flow"
+     height=300 />
+
 ## Inspiration
 
 Drawing inspiration from “Angel Shots” or “Guardian Angel Shots”, we created Angel as a way for women to always have someone looking out for them. An “Angel Shot” is a coded order that women can say to bartenders or waiters at bars to signal they need assistance. The different varieties of angel shots could result in having an employee escort you to your car, calling an uber for you, or in extreme cases calling the police for you. We loved the idea that women could feel safe and protected without having to draw much attention to themselves, but, as a team of mainly high school seniors, we wanted to create something that could be applicable in places beyond just bars or nightclubs. 
